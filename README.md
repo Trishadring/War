@@ -6,18 +6,21 @@
 1) Define required constants:
     1.1) Define players 1 & -1.
     1.2) Define list of cards with their worth
+      1.3) create list of all cards in the game
     1.3) suits of the deck
 
 2) Define required variables used to track the state of the game:
-    2.1) Decks of each play, what cards & values they have in their deck & how many cards are left in each players deck
-    2.2) playing feild: what cards are on the feild
-
+    2.1) Decks of each player, what cards & values they have in their deck &
+      2.1.1) how many cards are left in each players deck
+      2.1.2) win condition: if player has no more cards the other player wins
+    2.2) playing feild: what cards are on the feild: now called battle arena
 
 3) Store elements on the page that will be accessed in code more than once in variables to make code more concise, readable and performant:
     3.1) The deal button, to deal new cards to the players
     3.2) start button: restart game and preform init function
-    3.3) message area: where we can put messages of who won each round as well as how many cards each player has
-    3.4) play arena: showcase current cards from each player
+    3.3) message: where we can put messages of who won each round
+    3.4) p1 and p2 message area to display how many cards each player has left
+    3.4) battle arena: showcase current cards from each player
 
 4) Upon loading the app should:
     4.1) Initialize the state variables:
