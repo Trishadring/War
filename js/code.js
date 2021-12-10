@@ -37,24 +37,35 @@ const p2CardsLeft = document.querySelector('#p2-cards-Left');
 
 /// functions
 
-// init();
+function init(){
+  makeDeck();
+  console.log(deck);
+  suffleDeck(deck);
+  console.log(deck);
+};
 // render();
-// shuffle();
 // dealHands();
 // showCards();
 // roundWinner();
 // renderMessage();
 
 function makeDeck(){
-  for(let i =0; i < 4; i++ ){
-    for(let r=0; r < 13; r++ ){
+  for(let i = 0; i < 4; i++ ){
+    for(let r = 0; r < 13; r++ ){
       deck.push(ranks[r] + suits[i])
     }
   }
-  
 }
 
-makeDeck();
+function suffleDeck(deck){
+  for(let i=0; i<52; i++){
+    let tempCard = deck[i];
+    let randomIndex = Math.floor(Math.random() * 52);
+    deck[i] = deck[randomIndex];
+    deck[randomIndex] = tempCard;
+  }
+}
 
-console.log(deck);
+init();
+
 
