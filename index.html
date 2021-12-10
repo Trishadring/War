@@ -7,30 +7,30 @@
   <title>Document</title>
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="card-library/css/cardstarter.css">
-  <script src="js/code.js"></script>
+  <script defer src="js/code.js"></script>
 </head>
 <body>
   <nav>
     <h1>War!</h1>
-    <button>Start Game</button>
+    <button id="start">New Game</button>
   </nav>
  <div class="play-area">
-   <h3 class="msg">Lets Play War!</h3>
-   <div class="p-1">
-    <h4 class="cards-left">0 Cards Left</h4>
-    <div class="card xlarge back shadow">Card</div>
+   <h3 id="msg">Lets Play War!</h3>
+   <div id="p-1">
+    <h4 id="p1-cards-Left" class="cards-left">0 Cards Left</h4>
+    <div  class="card xlarge back shadow">Card</div>
    </div>
-   <div class="battle-arena">
-    <div class="card xlarge outline">Card</div>
-    <div class="card xlarge outline">Card</div>
+   <div id="battle-arena">
+    <div id="p1-card" class="card xlarge outline shadow">Card</div>
+    <div id="p2-card" class="card xlarge outline shadow">Card</div>
    </div>
-   <div class="p-2">
-    <h4 class="cards-left">0 Cards Left</h4>
+   <div id="p-2">
+    <h4 id="p2-cards-Left"  class="cards-left">0 Cards Left</h4>
     <div class="card xlarge back shadow">Card</div>
    </div>
  </div>
  <footer>
-   <button>Deal Card</button>
+   <button id="deal">Deal Card</button>
  </footer>
 </body>
 </html>
