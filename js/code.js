@@ -39,10 +39,10 @@ const p2CardsLeft = document.querySelector('#p2-cards-Left');
 
 function init(){
   makeDeck();
-  console.log(deck);
   suffleDeck(deck);
-  console.log(deck);
+  dealCards();
 };
+
 // render();
 // dealHands();
 // showCards();
@@ -64,6 +64,11 @@ function suffleDeck(deck){
     deck[i] = deck[randomIndex];
     deck[randomIndex] = tempCard;
   }
+}
+
+function dealCards(){
+  p1Deck = deck.splice(0,26);
+  p2Deck = deck.splice(0,26);
 }
 
 init();
