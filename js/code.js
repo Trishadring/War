@@ -96,15 +96,17 @@ function showCards(){
    </div>`;
 };
 
+function updateCardsLeft(){
+  p1CardsLeft.innerText = `${p1Deck.length} Cards Left`;
+  p2CardsLeft.innerText = `${p2Deck.length} Cards Left`;
+
+}
 function draw(){
   clearField();
   battleCards();
-  console.log(battleArena);
   showCards(battleArena);
+  updateCardsLeft();
 }
-
-
-
 
 function render(){
   //showCards(battleArena);
