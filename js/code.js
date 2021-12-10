@@ -1,7 +1,7 @@
 console.log("script is loaded")
 //constant elements
-const suits = ['H', 'C', 'D', "S"];
-const ranks = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A'];
+const suits = ['h', 'c', 'd', "s"];
+const ranks = ['02', '03', '04', '05', '06', '07', '08', '09', '10', 'J', 'Q', 'K', 'A'];
 const deck = [];
 // const values = {
 //   'A': 14,
@@ -34,25 +34,28 @@ const p2Card = document.querySelector('#p2-card');
 const p1CardsLeft = document.querySelector('#p1-cards-Left');
 const p2CardsLeft = document.querySelector('#p2-cards-Left');
 
+//event listeniers
+
+dealEl.addEventListener('click', draw);
+startEl.addEventListener('click', init);
 
 /// functions
 
 function init(){
+  clearField();
   makeDeck();
   suffleDeck(deck);
   dealCards();
+  battleCards();
 };
 
-// render();
-// dealHands();
-// showCards();
-// roundWinner();
-// renderMessage();
+
+//starting game 
 
 function makeDeck(){
   for(let i = 0; i < 4; i++ ){
     for(let r = 0; r < 13; r++ ){
-      deck.push(ranks[r] + suits[i])
+      deck.push(suits[i] + ranks[r])
     }
   }
 }
@@ -71,6 +74,42 @@ function dealCards(){
   p2Deck = deck.splice(0,26);
 }
 
-init();
+function clearField(){
+  document.getElementById("battle-arena").innerHTML =
+    `<div id="battle-arena">
+      <div id="p1-card" class="card xlarge shadow outline"></div>
+      <div id="p2-card" class="card xlarge shadow outline"></div>
+   </div>`;
+}
 
+function battleCards(){
+  let p1 = p1Deck.splice(0, 1);
+  let p2 = p2Deck.splice(0, 1);
+  return battleArena = p1.concat(p2);
+}
+
+function showCards(){
+  document.getElementById("battle-arena").innerHTML =
+    `<div id="battle-arena">
+      <div id="p1-card" class="card xlarge shadow ${battleArena[0]}"></div>
+      <div id="p2-card" class="card xlarge shadow ${battleArena[1]}"></div>
+   </div>`;
+};
+
+function draw(){
+  clearField();
+  battleCards();
+  console.log(battleArena);
+  showCards(battleArena);
+}
+
+
+
+
+function render(){
+  //showCards(battleArena);
+};
+
+init();
+render();
 
