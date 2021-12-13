@@ -3,20 +3,63 @@ console.log("script is loaded")
 const suits = ['h', 'c', 'd', "s"];
 const ranks = ['02', '03', '04', '05', '06', '07', '08', '09', '10', 'J', 'Q', 'K', 'A'];
 const deck = [];
-// const values = {
-//   'A': 14,
-//   'K': 13,
-//   'Q': 12,
-//   'J': 11,
-//   10: 10,
-//   9: 9,
-//   8: 8,
-//   7: 7,
-//   6: 6,
-//   5: 5,
-//   4: 4,
-//   2: 2,
-// }
+const values = [
+  {
+    name: 'A',
+    value: 14
+  },
+  {
+    name:'A',
+    value: 14
+  },
+  {
+    name:'K',
+    value : 13
+  },
+  { 
+    name:'Q',
+    value:12
+  },
+  { name:'J',
+    value:11
+  },
+  {
+    name: '10',
+    value:10
+  },
+  {
+    name:'09',
+    value: 9
+  },
+  { 
+    name:'08',
+    value: 8
+  },
+  { 
+    name:'07',
+    value: 7
+  },
+  { 
+    name:'06',
+    value: 6
+  },
+  { 
+    name:'05',
+    value: 5
+  },
+  { 
+    name:'04',
+    value: 4
+  },
+  { 
+    name:'03',
+    value:3
+  },
+  { 
+    name:'02',
+    value:2
+  },
+]
 
 
 //variables
@@ -24,6 +67,7 @@ let p1Deck = [];
 let p2Deck = [];
 let battleArena = [];
 let winner;
+let roundWinner;
 
 ///dom elements
 const dealEl = document.querySelector("#deal");
@@ -97,14 +141,46 @@ function showCards(){
 };
 
 function updateCardsLeft(){
-  p1CardsLeft.innerText = `${p1Deck.length} Cards Left`;
-  p2CardsLeft.innerText = `${p2Deck.length} Cards Left`;
-
+  p1CardsLeft.innerText = `P1 has ${p1Deck.length} Cards Left`;
+  p2CardsLeft.innerText = `P2 has ${p2Deck.length} Cards Left`;
 }
+
+function findRoundWinner() {
+  let p1card = battleArena[0].slice(1);
+  let p2card = battleArena[1].slice(1);
+  let p1cardValue = values.find(x => x.name === p1card ).value;
+  let p2cardValue = values.find(x => x.name === p2card ).value;
+  if (p1cardValue < p2cardValue){
+    roundWinner = 'Player 2';
+  } else{
+    roundWinner = 'Player 1';
+    
+  }
+  console.log(`${roundWinner} wins`);
+}
+
+function updateWinnerMessage(){
+  msgEl.innerHTML = `${roundWinner} Wins the round`
+}
+function giveWinnerCards(){
+  if (roundWinner === 'Player 2'){
+    p2Deck.push(battleArena[0], battleArena[1]);
+    console.log(p2Deck);
+  } else if (roundWinner === 'Player 1') {
+    p1Deck.push(battleArena[0], battleArena[1]);
+    console.log(p1Deck);
+    
+  }
+}
+
 function draw(){
   clearField();
   battleCards();
   showCards(battleArena);
+  updateCardsLeft();
+  findRoundWinner();
+  updateWinnerMessage();
+  giveWinnerCards();
   updateCardsLeft();
 }
 
