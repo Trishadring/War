@@ -131,7 +131,6 @@ function battleCards(){
   let p1 = p1Deck.splice(0, 1);
   let p2 = p2Deck.splice(0, 1);
   battleArena.push(p1[0],p2[0]);
-
 }
 
 function showCards(){
@@ -147,23 +146,28 @@ function updateCardsLeft(){
   p2CardsLeft.innerText = `P2 has ${p2Deck.length} Cards Left`;
 }
 
+function findValue(card){
+  return values.find(x => x.name === card).value;
+}
+
 function findRoundWinner() {
   let p1card = battleArena[0].slice(1);
   let p2card = battleArena[1].slice(1);
-  let p1cardValue = values.find(x => x.name === p1card).value;
-  let p2cardValue = values.find(x => x.name === p2card).value;
-  if (p1cardValue < p2cardValue){
-    roundWinner = 'Player 2 Wins the round';
-    p2Deck.push(battleArena[0], battleArena[1]);
-    battleArena = [];
-  } else if (p1cardValue > p2cardValue){
-    roundWinner = 'Player 1 Wins the round';
-    p1Deck.push(battleArena[0], battleArena[1]);
-    battleArena = [];
-  } else {
+  let p1cardValue = findValue(p1card);
+  let p2cardValue = findValue(p2card);
+  if (p1cardValue === p2cardValue ){
     roundWinner = `It's A Tie`;
     tieCardHolder = battleArena.splice(0, 2);
-
+  } else if (p1cardValue < p2cardValue){
+    roundWinner = 'Player 2 Wins the round';
+    giveVictor(p2Deck);
+    //p2Deck.push(battleArena[0], battleArena[1]);
+   // battleArena = [];
+  } else if (p1cardValue > p2cardValue){
+    roundWinner = 'Player 1 Wins the round';
+    giveVictor(p1Deck);
+   // p1Deck.push(battleArena[0], battleArena[1]);
+    //battleArena = [];
   }
   console.log(p1Deck);
 }
@@ -180,6 +184,11 @@ function checkIfGameOver(){
     msgEl.innerHTML = `Player 2 Wins the Game`
     dealEl.disabled = true;
   }
+}
+
+function giveVictor(victor){
+  battleArena.forEach((card) => victor.splice(0, 0, card));
+  battleArena.splice(0);
 }
 
 function draw(){
