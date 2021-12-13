@@ -66,6 +66,7 @@ const values = [
 let p1Deck = [];
 let p2Deck = [];
 let battleArena = [];
+let tieCardHolder =[];
 let winner;
 let roundWinner;
 
@@ -86,10 +87,10 @@ startEl.addEventListener('click', init);
 /// functions
 
 function init(){
-  clearField();
-  makeDeck();
-  suffleDeck(deck);
-  dealCards();
+  clearField(); // clear the classes from the page that make the cards
+  makeDeck(); // create the deck of cards
+  suffleDeck(deck); // randomize the deck
+  dealCards(); // give each player 26 cards
   battleCards();
 };
 
@@ -152,42 +153,31 @@ function findRoundWinner() {
   let p2cardValue = values.find(x => x.name === p2card ).value;
   if (p1cardValue < p2cardValue){
     roundWinner = 'Player 2';
-  } else{
+    p2Deck.push(battleArena[0], battleArena[1]);
+  } else if (p1cardValue > p2cardValue){
     roundWinner = 'Player 1';
-    
+    p1Deck.push(battleArena[0], battleArena[1]);
+  } else {
+    roundWinner = 'Tie'
   }
-  console.log(`${roundWinner} wins`);
 }
 
 function updateWinnerMessage(){
   msgEl.innerHTML = `${roundWinner} Wins the round`
 }
-function giveWinnerCards(){
-  if (roundWinner === 'Player 2'){
-    p2Deck.push(battleArena[0], battleArena[1]);
-    console.log(p2Deck);
-  } else if (roundWinner === 'Player 1') {
-    p1Deck.push(battleArena[0], battleArena[1]);
-    console.log(p1Deck);
-    
-  }
-}
 
 function draw(){
-  clearField();
-  battleCards();
-  showCards(battleArena);
-  updateCardsLeft();
-  findRoundWinner();
-  updateWinnerMessage();
-  giveWinnerCards();
-  updateCardsLeft();
+  clearField(); // clear the classes from the page that make the cards
+  battleCards(); //move cards from players deck to battle arena
+  findRoundWinner(); // use value to find which card is larger
+  render();
 }
 
 function render(){
-  //showCards(battleArena);
+  showCards(battleArena); // update the dom to show the cards drawn
+  updateWinnerMessage(); //update msg to say which player one the round
+  updateCardsLeft(); //update text for how many cards left each player has
 };
 
 init();
-render();
 
