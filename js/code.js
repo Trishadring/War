@@ -61,10 +61,21 @@ const values = [
   },
 ]
 
+const players = {
+  '1': {
+    name: 'Player One',
+    deck: [],
+  },
+  '0': {
+    name: 'Player Two',
+    deck: [],
+  },
+};
+
 
 //variables
-let p1Deck = [];
-let p2Deck = [];
+// let p1Deck = [];
+// let p2Deck = [];
 let battleArena;
 let tieCardHolder = [];
 let winner;
@@ -115,8 +126,8 @@ function suffleDeck(deck){
 }
 
 function dealCards(){
-  p1Deck = deck.splice(0,26);
-  p2Deck = deck.splice(0,26);
+  players[1].deck = deck.splice(0,26);
+  players[0].deck = deck.splice(0,26);
 }
 
 function clearField(){
@@ -128,48 +139,47 @@ function clearField(){
 }
 
 function battleCards(){
-  let p1 = p1Deck.splice(0, 1);
-  let p2 = p2Deck.splice(0, 1);
+  let p1 = players[1].deck.splice(0, 1);
+  let p2 = players[0].deck.splice(0, 1);
   battleArena.push(p1[0],p2[0]);
 }
 
-function showCards(){
+function showCards(c1, c2){
   document.getElementById("battle-arena").innerHTML =
     `<div id="battle-arena">
-      <div id="p1-card" class="card xlarge shadow ${battleArena[0]}"></div>
-      <div id="p2-card" class="card xlarge shadow ${battleArena[1]}"></div>
+      <div id="p1-card" class="card xlarge shadow ${c1}"></div>
+      <div id="p2-card" class="card xlarge shadow ${c2}"></div>
    </div>`;
 };
 
 function updateCardsLeft(){
-  p1CardsLeft.innerText = `P1 has ${p1Deck.length} Cards Left`;
-  p2CardsLeft.innerText = `P2 has ${p2Deck.length} Cards Left`;
+  p1CardsLeft.innerText = `P1 has ${players[1].deck.length} Cards Left`;
+  p2CardsLeft.innerText = `P2 has ${players[0].deck.length} Cards Left`;
 }
 
 function findValue(card){
-  return values.find(x => x.name === card).value;
+  let number = card.slice(1);
+  return values.find(x => x.name === number).value;
 }
 
-function findRoundWinner() {
-  let p1card = battleArena[0].slice(1);
-  let p2card = battleArena[1].slice(1);
-  let p1cardValue = findValue(p1card);
-  let p2cardValue = findValue(p2card);
-  if (p1cardValue === p2cardValue ){
+function findRoundWinner(p1Card,p2Card) {
+  if (p1Card === p2Card ){
     roundWinner = `It's A Tie`;
-    tieCardHolder = battleArena.splice(0, 2);
-  } else if (p1cardValue < p2cardValue){
+    war();
+  //   console.log(players[1].deck);
+  // console.log(players[0].deck);
+  } else if (p1Card < p2Card){
     roundWinner = 'Player 2 Wins the round';
-    giveVictor(p2Deck);
-    //p2Deck.push(battleArena[0], battleArena[1]);
-   // battleArena = [];
-  } else if (p1cardValue > p2cardValue){
+    giveVictor(players[0].deck);
+  //   console.log(players[1].deck);
+  // console.log(players[0].deck);
+  } else if (p1Card > p2Card){
     roundWinner = 'Player 1 Wins the round';
-    giveVictor(p1Deck);
-   // p1Deck.push(battleArena[0], battleArena[1]);
-    //battleArena = [];
+    giveVictor(players[1].deck);
+  //   console.log(players[1].deck);
+  // console.log(players[0].deck);
   }
-  console.log(p1Deck);
+  
 }
 
 function updateWinnerMessage(){
@@ -177,34 +187,42 @@ function updateWinnerMessage(){
 }
 
 function checkIfGameOver(){
-  if (p1Deck.length === 0){
+  if (players[1].deck.length === 0){
     msgEl.innerHTML = `Player 2 Wins the Game`
     dealEl.disabled = true;
-  } else if (p2Deck.length === 0){
+  } else if (players[0].deck.length === 0){
     msgEl.innerHTML = `Player 2 Wins the Game`
     dealEl.disabled = true;
   }
 }
 
 function giveVictor(victor){
-  battleArena.forEach((card) => victor.splice(0, 0, card));
+  let length = victor.length;
+  battleArena.forEach((card) => victor.splice(length, 0, card));
   battleArena.splice(0);
+}
+
+function war(){
+  battleCards();
+  battleCards();
+  clearField();
+  showCards(battleArena[4],battleArena[5]);
+  findRoundWinner(findValue(battleArena[4]), findValue(battleArena[5]))
 }
 
 function draw(){
   clearField(); // clear the classes from the page that make the cards
   battleCards(); //move cards from players deck to battle arena
-  showCards(battleArena); // update the dom to show the cards drawn
-  findRoundWinner(); // use value to find which card is larger
+  showCards(battleArena[0],battleArena[1] ); // update the dom to show the cards drawn
+  findRoundWinner(findValue(battleArena[0]), findValue(battleArena[1])); // use value to find which card is larger
+  msgEl.innerHTML = ``
   render();
 }
 
 function render(){
-
-  updateWinnerMessage(); //update msg to say which player one the round
-  updateCardsLeft(); //update text for how many cards left each player has
+    updateWinnerMessage(); //update msg to say which player one the round
+    updateCardsLeft(); //update text for how many cards left each player has
   checkIfGameOver(); //check if someone one the game
-
 };
 
 init();
