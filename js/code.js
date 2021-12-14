@@ -1,6 +1,6 @@
 console.log("script is loaded")
 //constant elements
-const suits = ['h', 'c', 'd', "s"];
+const suits = ['h', 'c', 'd', 's']
 const ranks = ['02', '03', '04', '05', '06', '07', '08', '09', '10', 'J', 'Q', 'K', 'A'];
 const deck = [];
 const values = [
@@ -61,10 +61,12 @@ const players = {
   '1': {
     name: 'Player One',
     deck: [],
+    wins: 0,
   },
   '0': {
     name: 'Player Two',
     deck: [],
+    wins: 0,
   },
 };
 
@@ -73,6 +75,7 @@ const players = {
 let battleArena;
 let winner;
 let roundWinner;
+let rounds = 0;
 
 ///dom elements
 const dealEl = document.querySelector("#deal");
@@ -96,6 +99,7 @@ function init(){
   makeDeck(); // create the deck of cards
   suffleDeck(deck); // randomize the deck
   dealCards(); // give each player 26 cards
+  dealEl.disabled = false; //un disable the button
 };
 
 
@@ -119,8 +123,8 @@ function suffleDeck(deck){
 }
 
 function dealCards(){
-  players[1].deck = deck.splice(0,26); //give p1 half the deck
-  players[0].deck = deck.splice(0,26); //give p2 half the deck
+  players[1].deck = deck.splice(0,10); //give p1 half the deck
+  players[0].deck = deck.splice(0,10); //give p2 half the deck
 }
 
 function clearField(){ //starting code for cards
@@ -155,22 +159,34 @@ function findValue(card){
   return values.find(x => x.name === number).value;
 }
 
-function findRoundWinner(p1Card,p2Card) {
-  if (p1Card === p2Card ){
+
+function canWeWar(){
+  let p1 = players[1].deck.length;
+  let p2 = players[0].deck.length;
+  if(p1<3){
+    msgEl.innerHTML = `${players[0].name} Wins the Game, ${players[1].name} didn't have enough cards for war`
+    dealEl.disabled = true;
+  } else if (p2<3){
+    msgEl.innerHTML = `${players[1].name} Wins the Game ${players[0].name} didn't have enough cards for war`
+    dealEl.disabled = true;
+  } else{
     war();
+  }
+}
+function findRoundWinner(p1Card,p2Card) {
+  rounds++;
+  console.log(rounds);
+  if (p1Card === p2Card ){
+    canWeWar();
     console.log('there was a tie');
-  //   console.log(players[1].deck);
-  // console.log(players[0].deck);
   } else if (p1Card < p2Card){
     roundWinner = 'Player 2 Wins the round';
     giveVictor(players[0].deck);
-  //   console.log(players[1].deck);
-  // console.log(players[0].deck);
+    players[1].wins+= 1;
   } else if (p1Card > p2Card){
     roundWinner = 'Player 1 Wins the round';
     giveVictor(players[1].deck);
-  //   console.log(players[1].deck);
-  // console.log(players[0].deck);
+    players[0].wins+= 1;
   }
 }
 
@@ -195,6 +211,7 @@ function giveVictor(victor){
 }
 
 function war(){
+  // add what happens if the player doesn't have 3 cards it should end the game 
   battleCards();
   battleCards();
   setTimeout(function(){
@@ -212,13 +229,14 @@ function draw(){
   showCards(battleArena[0],battleArena[1] ); // update the dom to show the cards drawn
   findRoundWinner(findValue(battleArena[0]), findValue(battleArena[1])); // use value to find which card is larger
   msgEl.innerHTML = ``
+  checkIfGameOver();
   render();
 }
 
 function render(){
-    updateWinnerMessage(); //update msg to say which player one the round
-    updateCardsLeft(); //update text for how many cards left each player has
-  checkIfGameOver(); //check if someone one the game
+  updateWinnerMessage(); //update msg to say which player one the round
+  updateCardsLeft(); //update text for how many cards left each player has
+   //check if someone one the game
 };
 
 init();
