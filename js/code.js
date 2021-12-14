@@ -78,13 +78,13 @@ let roundWinner;
 let rounds = 0;
 
 ///dom elements
-const dealEl = document.querySelector("#deal");
-const startEl = document.querySelector('#start');
-const msgEl = document.querySelector('#msg');
-const p1Card = document.querySelector('#p1-card');
-const p2Card = document.querySelector('#p2-card');
-const p1CardsLeft = document.querySelector('#p1-cards-Left');
-const p2CardsLeft = document.querySelector('#p2-cards-Left');
+const dealEl = document.getElementById("deal");
+const startEl = document.getElementById('start');
+const msgEl = document.getElementById('msg');
+const p1Card = document.getElementById('p1-card');
+const p2Card = document.getElementById('p2-card');
+const p1CardsLeft = document.getElementById('p1-cards-Left');
+const p2CardsLeft = document.getElementById('p2-cards-Left');
 
 //event listeniers
 
@@ -95,6 +95,7 @@ startEl.addEventListener('click', init);
 
 function init(){
   battleArena = [];
+  msgEl.innerHTML = `Let's Play War!`
   clearField(); // clear the classes from the page that make the cards
   makeDeck(); // create the deck of cards
   suffleDeck(deck); // randomize the deck
@@ -128,25 +129,23 @@ function dealCards(){
 }
 
 function clearField(){ //starting code for cards
-  document.getElementById("battle-arena").innerHTML =
-    `<div id="battle-arena">
-      <div id="p1-card" class="card xlarge shadow outline"></div>
-      <div id="p2-card" class="card xlarge shadow outline"></div>
-   </div>`;
+  p1Card.removeAttribute('class');
+  p2Card.removeAttribute('class');
+  p1Card.classList.add('card', 'shadow', 'outline');
+  p2Card.classList.add('card', 'shadow', 'outline');
 }
 
-function battleCards(){
+function drawCards(){
   let p1 = players[1].deck.splice(0, 1); //get the first cards 
   let p2 = players[0].deck.splice(0, 1);
   battleArena.push(p1[0],p2[0]); //add to battle arena array
 }
 
 function showCards(c1, c2){ //update cards on dom
-  document.getElementById("battle-arena").innerHTML =
-    `<div id="battle-arena">
-      <div id="p1-card" class="card xlarge shadow ${c1}"></div>
-      <div id="p2-card" class="card xlarge shadow ${c2}"></div>
-   </div>`;
+  p1Card.removeAttribute('class');
+  p2Card.removeAttribute('class');
+  p1Card.classList.add('card', 'shadow', `${c1}`);
+  p2Card.classList.add('card', 'shadow', `${c2}`);
 };
 
 function updateCardsLeft(){
@@ -163,28 +162,33 @@ function findValue(card){
 function canWeWar(){
   let p1 = players[1].deck.length;
   let p2 = players[0].deck.length;
-  if(p1<3){
+  console.log(p1);
+  console.log(p2);
+  if(p1<2){
     msgEl.innerHTML = `${players[0].name} Wins the Game, ${players[1].name} didn't have enough cards for war`
     dealEl.disabled = true;
-  } else if (p2<3){
+  } else if (p2<2){
     msgEl.innerHTML = `${players[1].name} Wins the Game ${players[0].name} didn't have enough cards for war`
     dealEl.disabled = true;
   } else{
     war();
   }
 }
-function findRoundWinner(p1Card,p2Card) {
+function findRoundWinner(p1c,p2c) {
   rounds++;
   console.log(rounds);
-  if (p1Card === p2Card ){
+  if (p1c === p2c ){
+    roundWinner = `WAR!`;
     canWeWar();
     console.log('there was a tie');
-  } else if (p1Card < p2Card){
-    roundWinner = 'Player 2 Wins the round';
+  } else if (p1c < p2c){
+    roundWinner = `${players[0].name} wins the round`;
+    p1Card.classlist.add('winner');
     giveVictor(players[0].deck);
     players[1].wins+= 1;
-  } else if (p1Card > p2Card){
-    roundWinner = 'Player 1 Wins the round';
+  } else if (p1c > p2c){
+    roundWinner = `${players[1].name} wins the round`;
+    p2Card.classlist.add('winner');
     giveVictor(players[1].deck);
     players[0].wins+= 1;
   }
@@ -196,10 +200,10 @@ function updateWinnerMessage(){
 
 function checkIfGameOver(){
   if (players[1].deck.length === 0){
-    msgEl.innerHTML = `Player 2 Wins the Game`
+    msgEl.innerHTML = `${players[1].name} Wins the Game`
     dealEl.disabled = true;
   } else if (players[0].deck.length === 0){
-    msgEl.innerHTML = `Player 2 Wins the Game`
+    msgEl.innerHTML = `${players[0].name} Wins the Game`
     dealEl.disabled = true;
   }
 }
@@ -212,20 +216,18 @@ function giveVictor(victor){
 
 function war(){
   // add what happens if the player doesn't have 3 cards it should end the game 
-  battleCards();
-  battleCards();
+  drawCards();
+  drawCards();
   setTimeout(function(){
     clearField();
     showCards(battleArena[4],battleArena[5]);
     findRoundWinner(findValue(battleArena[4]), findValue(battleArena[5]))
  }, 1000);
-  console.log(findValue(battleArena[4]));
-  console.log(findValue(battleArena[5]));
 }
 
 function draw(){
   clearField(); // clear the classes from the page that make the cards
-  battleCards(); //move cards from players deck to battle arena
+  drawCards(); //move cards from players deck to battle arena
   showCards(battleArena[0],battleArena[1] ); // update the dom to show the cards drawn
   findRoundWinner(findValue(battleArena[0]), findValue(battleArena[1])); // use value to find which card is larger
   msgEl.innerHTML = ``
