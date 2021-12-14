@@ -67,3 +67,8 @@ footer{
 .winner{
   box-shadow: 2px 2px 3px 0 rgb(255 0 0 / 75%) !important;
 }
+
+.cards-left{
+ padding:.4rem;
+ margin:0;
+}

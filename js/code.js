@@ -95,6 +95,9 @@ startEl.addEventListener('click', init);
 
 function init(){
   battleArena = [];
+  rounds = 0;
+  players[1].wins = 0;
+  players[0].wins = 0;
   msgEl.innerHTML = `Let's Play War!`
   clearField(); // clear the classes from the page that make the cards
   makeDeck(); // create the deck of cards
@@ -124,8 +127,8 @@ function suffleDeck(deck){
 }
 
 function dealCards(){
-  players[1].deck = deck.splice(0,10); //give p1 half the deck
-  players[0].deck = deck.splice(0,10); //give p2 half the deck
+  players[1].deck = deck.splice(0,8); //give p1 half the deck
+  players[0].deck = deck.splice(0,8); //give p2 half the deck
 }
 
 function clearField(){ //starting code for cards
@@ -165,10 +168,16 @@ function canWeWar(){
   console.log(p1);
   console.log(p2);
   if(p1<2){
+    console.log(p1<2);
+    console.log("p1 lost")
     msgEl.innerHTML = `${players[0].name} Wins the Game, ${players[1].name} didn't have enough cards for war`
+    console.log("p1 lost did it update")
     dealEl.disabled = true;
   } else if (p2<2){
+    console.log(p2<2);
+    console.log("p2 lost")
     msgEl.innerHTML = `${players[1].name} Wins the Game ${players[0].name} didn't have enough cards for war`
+    console.log("p2 lost did it update")
     dealEl.disabled = true;
   } else{
     war();
@@ -176,34 +185,42 @@ function canWeWar(){
 }
 function findRoundWinner(p1c,p2c) {
   rounds++;
-  console.log(rounds);
+  document.getElementById('rounds').innerText = rounds;
   if (p1c === p2c ){
     roundWinner = `WAR!`;
     canWeWar();
     console.log('there was a tie');
+    updateWinnerMessage(); //update msg to say which player one the round
   } else if (p1c < p2c){
     roundWinner = `${players[0].name} wins the round`;
-    p1Card.classlist.add('winner');
+    p2Card.classList.add('winner');
     giveVictor(players[0].deck);
     players[1].wins+= 1;
+    document.getElementById('p1-wins').innerText = players[1].wins;
+    updateWinnerMessage(); //update msg to say which player one the round
   } else if (p1c > p2c){
     roundWinner = `${players[1].name} wins the round`;
-    p2Card.classlist.add('winner');
+    p1Card.classList.add('winner');
     giveVictor(players[1].deck);
     players[0].wins+= 1;
+    updateWinnerMessage(); //update msg to say which player one the round
   }
 }
 
 function updateWinnerMessage(){
-  msgEl.innerHTML = `${roundWinner}`
+  msgEl.innerText = `${roundWinner}`
 }
 
 function checkIfGameOver(){
   if (players[1].deck.length === 0){
-    msgEl.innerHTML = `${players[1].name} Wins the Game`
+    console.log("p1 lost")
+    msgEl.innerText = `${players[1].name} wins the Game`
+    console.log("p1 lost did we update text")
     dealEl.disabled = true;
   } else if (players[0].deck.length === 0){
-    msgEl.innerHTML = `${players[0].name} Wins the Game`
+    console.log("p2 lost")
+    msgEl.innerText = `${players[0].name} wins the Game`
+    console.log("p2 lost did we update text")
     dealEl.disabled = true;
   }
 }
@@ -230,15 +247,13 @@ function draw(){
   drawCards(); //move cards from players deck to battle arena
   showCards(battleArena[0],battleArena[1] ); // update the dom to show the cards drawn
   findRoundWinner(findValue(battleArena[0]), findValue(battleArena[1])); // use value to find which card is larger
-  msgEl.innerHTML = ``
-  checkIfGameOver();
   render();
 }
 
 function render(){
-  updateWinnerMessage(); //update msg to say which player one the round
+  
   updateCardsLeft(); //update text for how many cards left each player has
-   //check if someone one the game
+  checkIfGameOver(); //check if someone one the game
 };
 
 init();
