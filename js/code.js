@@ -9,10 +9,6 @@ const values = [
     value: 14
   },
   {
-    name:'A',
-    value: 14
-  },
-  {
     name:'K',
     value : 13
   },
@@ -74,10 +70,7 @@ const players = {
 
 
 //variables
-// let p1Deck = [];
-// let p2Deck = [];
 let battleArena;
-let tieCardHolder = [];
 let winner;
 let roundWinner;
 
@@ -117,20 +110,20 @@ function makeDeck(){
 }
 
 function suffleDeck(deck){
-  for(let i=0; i<52; i++){
-    let tempCard = deck[i];
-    let randomIndex = Math.floor(Math.random() * 52);
-    deck[i] = deck[randomIndex];
-    deck[randomIndex] = tempCard;
+  for(let i=0; i<52; i++){ //for each 52 cards
+    let tempCard = deck[i]; //temp card start position
+    let randomIndex = Math.floor(Math.random() * 52); // find random card to switch with
+    deck[i] = deck[randomIndex];  //switch the cards
+    deck[randomIndex] = tempCard; 
   }
 }
 
 function dealCards(){
-  players[1].deck = deck.splice(0,26);
-  players[0].deck = deck.splice(0,26);
+  players[1].deck = deck.splice(0,26); //give p1 half the deck
+  players[0].deck = deck.splice(0,26); //give p2 half the deck
 }
 
-function clearField(){
+function clearField(){ //starting code for cards
   document.getElementById("battle-arena").innerHTML =
     `<div id="battle-arena">
       <div id="p1-card" class="card xlarge shadow outline"></div>
@@ -139,12 +132,12 @@ function clearField(){
 }
 
 function battleCards(){
-  let p1 = players[1].deck.splice(0, 1);
+  let p1 = players[1].deck.splice(0, 1); //get the first cards 
   let p2 = players[0].deck.splice(0, 1);
-  battleArena.push(p1[0],p2[0]);
+  battleArena.push(p1[0],p2[0]); //add to battle arena array
 }
 
-function showCards(c1, c2){
+function showCards(c1, c2){ //update cards on dom
   document.getElementById("battle-arena").innerHTML =
     `<div id="battle-arena">
       <div id="p1-card" class="card xlarge shadow ${c1}"></div>
@@ -158,14 +151,14 @@ function updateCardsLeft(){
 }
 
 function findValue(card){
-  let number = card.slice(1);
+  let number = card.slice(1); //cut off the suit to find the value
   return values.find(x => x.name === number).value;
 }
 
 function findRoundWinner(p1Card,p2Card) {
   if (p1Card === p2Card ){
-    roundWinner = `It's A Tie`;
     war();
+    console.log('there was a tie');
   //   console.log(players[1].deck);
   // console.log(players[0].deck);
   } else if (p1Card < p2Card){
@@ -179,7 +172,6 @@ function findRoundWinner(p1Card,p2Card) {
   //   console.log(players[1].deck);
   // console.log(players[0].deck);
   }
-  
 }
 
 function updateWinnerMessage(){
@@ -205,9 +197,13 @@ function giveVictor(victor){
 function war(){
   battleCards();
   battleCards();
-  clearField();
-  showCards(battleArena[4],battleArena[5]);
-  findRoundWinner(findValue(battleArena[4]), findValue(battleArena[5]))
+  setTimeout(function(){
+    clearField();
+    showCards(battleArena[4],battleArena[5]);
+    findRoundWinner(findValue(battleArena[4]), findValue(battleArena[5]))
+ }, 1000);
+  console.log(findValue(battleArena[4]));
+  console.log(findValue(battleArena[5]));
 }
 
 function draw(){
