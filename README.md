@@ -1,5 +1,30 @@
 # War
 
+## War:
+A description of your game. Background info of the game is a nice touch.
+
+## Screenshot(s):
+
+img links
+
+
+
+## Technologies Used:
+
+ JavaScript, HTML, CSS, Google Fonts, CardStarter
+
+ ## Getting Started:
+
+Link needed 
+☐ Getting Started: In this section include the link to your deployed game and any instructions you deem important.
+
+
+# Making the Game
+
+## WireFrames:
+
+☐ Screenshot(s): Images of your actual game.
+
 ## Pseudocode:
 
 ```
@@ -55,3 +80,13 @@
     6.2) remove any messages from message area.
     6.3) Do steps 4.1 (initialize the state variables) and 4.2 (render).
 ```
+
+## Next Steps
+
+* Show cards played when playing war (the hidden cards)
+* display how many cards each player got instead of who won the round
+* add animation
+* improve code
+* add bootstrap 
+* add media queries
+* impove CSS

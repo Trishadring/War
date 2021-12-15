@@ -87,12 +87,10 @@ const p1CardsLeft = document.getElementById('p1-cards-Left');
 const p2CardsLeft = document.getElementById('p2-cards-Left');
 
 //event listeniers
-
 dealEl.addEventListener('click', draw);
 startEl.addEventListener('click', init);
 
 /// functions
-
 function init(){
   battleArena = [];
   rounds = 0;
@@ -108,7 +106,6 @@ function init(){
 
 
 //starting game 
-
 function makeDeck(){
   for(let i = 0; i < 4; i++ ){
     for(let r = 0; r < 13; r++ ){
@@ -165,19 +162,15 @@ function findValue(card){
 function canWeWar(){
   let p1 = players[1].deck.length;
   let p2 = players[0].deck.length;
-  console.log(p1);
-  console.log(p2);
   if(p1<2){
     console.log(p1<2);
     console.log("p1 lost")
     msgEl.innerHTML = `${players[0].name} Wins the Game, ${players[1].name} didn't have enough cards for war`
-    console.log("p1 lost did it update")
     dealEl.disabled = true;
   } else if (p2<2){
     console.log(p2<2);
     console.log("p2 lost")
     msgEl.innerHTML = `${players[1].name} Wins the Game ${players[0].name} didn't have enough cards for war`
-    console.log("p2 lost did it update")
     dealEl.disabled = true;
   } else{
     war();
@@ -215,12 +208,10 @@ function checkIfGameOver(){
   if (players[1].deck.length === 0){
     console.log("p1 lost")
     msgEl.innerText = `${players[1].name} wins the Game`
-    console.log("p1 lost did we update text")
     dealEl.disabled = true;
   } else if (players[0].deck.length === 0){
     console.log("p2 lost")
     msgEl.innerText = `${players[0].name} wins the Game`
-    console.log("p2 lost did we update text")
     dealEl.disabled = true;
   }
 }
@@ -258,8 +249,5 @@ function render(){
 
 init();
 
-//possible change round to how many cards they have won
-//add ice box details to readme
-//make list of all the things i can change/do
-//media queires
+
 
