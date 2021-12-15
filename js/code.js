@@ -258,3 +258,8 @@ function render(){
 
 init();
 
+//possible change round to how many cards they have won
+//add ice box details to readme
+//make list of all the things i can change/do
+//media queires
+

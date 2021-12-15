@@ -1,5 +1,12 @@
 :root{
-  font-family: Helvetica, Arial, sans-serif;
+  font-family: 'Source Code Pro', monospace;
+  --red: #d63031;
+  --black: #2d3436;
+  --blue:#74b9ff;
+  --green:#55efc4;
+  --gray:#dfe6e9;
+  --medPadding: 1rem;
+  
 }
 
 body{
@@ -8,6 +15,7 @@ body{
   text-align:center;
   grid-template-rows: 1.6rem 70% 1fr;
   grid-gap: 1em;
+  color: var(--black)
 }
 
 .card{
@@ -71,4 +79,21 @@ footer{
 .cards-left{
  padding:.4rem;
  margin:0;
+}
+
+.eyebrow{
+  font-weight: 200;
+  text-transform: uppercase;
+  font-size: .7rem;
+}
+
+button{
+  background-color: var(--green); /* Green */
+  border: none;
+  color: white;
+  padding: .5rem;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
 }
