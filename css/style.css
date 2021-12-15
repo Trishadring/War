@@ -121,3 +121,7 @@ footer{
   /* color: #fff; */
   transform: translateY(-1px);
 }
+
+button:disabled, button[disabled]{
+  background-color: var(--red);
+}
