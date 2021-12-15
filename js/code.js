@@ -1,4 +1,4 @@
-console.log("script is loaded")
+
 //constant elements
 const suits = ['h', 'c', 'd', 's']
 const ranks = ['02', '03', '04', '05', '06', '07', '08', '09', '10', 'J', 'Q', 'K', 'A'];
@@ -104,9 +104,8 @@ function init(){
   makeDeck(); // create the deck of cards
   suffleDeck(deck); // randomize the deck
   dealCards(); // give each player 26 cards
-  dealEl.disabled = false; //un disable the button
+  dealEl.disabled = false; //unDisable the button
 };
-
 
 //starting game 
 function makeDeck(){
@@ -118,7 +117,7 @@ function makeDeck(){
 }
 
 function suffleDeck(deck){
-  for(let i=0; i<52; i++){ //for each 52 cards
+  for( let i=0; i<52; i++ ){ //for each 52 cards
     let tempCard = deck[i]; //temp card start position
     let randomIndex = Math.floor(Math.random() * 52); // find random card to switch with
     deck[i] = deck[randomIndex];  //switch the cards
@@ -126,9 +125,19 @@ function suffleDeck(deck){
   }
 }
 
+function suffleDeckmini(deck){
+  let index = deck.length
+  for( let i=0; i<index; i++ ){ //shuffle the cards with the max being the index we found above
+    let tempCard = deck[i]; //temp card start position
+    let randomIndex = Math.floor(Math.random() * index); // find random card to switch with
+    deck[i] = deck[randomIndex];  //switch the cards
+    deck[randomIndex] = tempCard; 
+  }
+}
+
 function dealCards(){
-  players[1].deck = deck.splice(0,8); //give p1 half the deck
-  players[0].deck = deck.splice(0,8); //give p2 half the deck
+  players[1].deck = deck.splice(0,7); //give p1 half the deck
+  players[0].deck = deck.splice(0,7); //give p2 half the deck
 }
 
 function clearField(){ //starting code for cards
@@ -145,9 +154,9 @@ function drawCards(){
 }
 
 function showCards(c1, c2){ //update cards on dom
-  p1Card.removeAttribute('class');
+  p1Card.removeAttribute('class');  //remove all classes
   p2Card.removeAttribute('class');
-  p1Card.classList.add('card', 'shadow', `${c1}`);
+  p1Card.classList.add('card', 'shadow', `${c1}`); //add back in basic classes and class to display a card
   p2Card.classList.add('card', 'shadow', `${c2}`);
 };
 
@@ -161,39 +170,39 @@ function findValue(card){
   return values.find(x => x.name === number).value;
 }
 
-
 function canWeWar(){
   let p1 = players[1].deck.length;
   let p2 = players[0].deck.length;
-  if(p1<2){
-    console.log(p1<2);
-    console.log("p1 lost")
+  if( p1 < 2 ) {
+    console.log( p1 < 2 );
+    console.log("p1 lost");
     msgEl.innerHTML = `${players[0].name} Wins the Game, ${players[1].name} didn't have enough cards for war`
     dealEl.disabled = true;
-  } else if (p2<2){
-    console.log(p2<2);
-    console.log("p2 lost")
+  } else if ( p2 < 2 ) {
+    console.log( p2 < 2 );
+    console.log("p2 lost");
     msgEl.innerHTML = `${players[1].name} Wins the Game ${players[0].name} didn't have enough cards for war`
     dealEl.disabled = true;
-  } else{
+  } else {
     war();
   }
 }
+
 function findRoundWinner(p1c,p2c) {
   rounds++;
   document.getElementById('rounds').innerText = rounds;
-  if (p1c === p2c ){
+  if ( p1c === p2c ){
     roundWinner = `WAR!`;
-    canWeWar();
     console.log('there was a tie');
     updateWinnerMessage(); //update msg to say which player one the round
-  } else if (p1c < p2c){
+    canWeWar();
+  } else if ( p1c < p2c ){
     roundWinner = `${players[0].name} wins ${battleArena.length} cards`;
     p2Card.classList.add('winner');
     giveVictor(players[0].deck);
     players[0].wins+= 1;
     updateWinnerMessage(); //update msg to say which player one the round
-  } else if (p1c > p2c){
+  } else if ( p1c > p2c ){
     roundWinner = `${players[1].name} wins ${battleArena.length} cards`;
     p1Card.classList.add('winner');
     giveVictor(players[1].deck);
@@ -207,13 +216,13 @@ function updateWinnerMessage(){
 }
 
 function checkIfGameOver(){
-  if (players[1].deck.length === 0){
+  if ( players[1].deck.length === 0 ){
     console.log("p1 lost")
-    msgEl.innerText = `${players[1].name} wins the Game`
-    dealEl.disabled = true;
-  } else if (players[0].deck.length === 0){
-    console.log("p2 lost")
     msgEl.innerText = `${players[0].name} wins the Game`
+    dealEl.disabled = true;
+  } else if ( players[0].deck.length === 0 ){
+    console.log("p2 lost")
+    msgEl.innerText = `${players[1].name} wins the Game`
     dealEl.disabled = true;
   }
 }
@@ -225,22 +234,29 @@ function giveVictor(victor){
 }
 
 function war(){
-  // add what happens if the player doesn't have 3 cards it should end the game 
   drawCards();
   drawCards();
   setTimeout(function(){
     clearField();
     showCards(battleArena[4],battleArena[5]);
     findRoundWinner(findValue(battleArena[4]), findValue(battleArena[5]))
- }, 1000);
+  }, 1000);
 }
 
 function draw(){
   clearField(); // clear the classes from the page that make the cards
   drawCards(); //move cards from players deck to battle arena
-  showCards(battleArena[0],battleArena[1] ); // update the dom to show the cards drawn
+  showCards(battleArena[0],battleArena[1]); // update the dom to show the cards drawn
   findRoundWinner(findValue(battleArena[0]), findValue(battleArena[1])); // use value to find which card is larger
+  shuffleXrounds();
   render();
+}
+
+function shuffleXrounds(){
+  if( rounds % 5 === 0 ){
+    suffleDeckmini(players[1].deck);
+    suffleDeckmini(players[0].deck);
+  }
 }
 
 function render(){
