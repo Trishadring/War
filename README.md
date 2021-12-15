@@ -84,9 +84,10 @@ Link needed
 ## Next Steps
 
 * Show cards played when playing war (the hidden cards)
-* display how many cards each player got instead of who won the round
 * add animation
 * improve code
 * add bootstrap 
 * add media queries
 * impove CSS
+* add ablity to change player name
+* track games played

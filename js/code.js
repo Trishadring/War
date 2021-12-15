@@ -97,6 +97,9 @@ function init(){
   players[1].wins = 0;
   players[0].wins = 0;
   msgEl.innerHTML = `Let's Play War!`
+  document.getElementById('p1-wins').innerText = players[1].wins;
+  document.getElementById('p2-wins').innerText = players[0].wins;
+  document.getElementById('rounds').innerText = rounds;
   clearField(); // clear the classes from the page that make the cards
   makeDeck(); // create the deck of cards
   suffleDeck(deck); // randomize the deck
@@ -185,17 +188,16 @@ function findRoundWinner(p1c,p2c) {
     console.log('there was a tie');
     updateWinnerMessage(); //update msg to say which player one the round
   } else if (p1c < p2c){
-    roundWinner = `${players[0].name} wins the round`;
+    roundWinner = `${players[0].name} wins ${battleArena.length} cards`;
     p2Card.classList.add('winner');
     giveVictor(players[0].deck);
-    players[1].wins+= 1;
-    document.getElementById('p1-wins').innerText = players[1].wins;
+    players[0].wins+= 1;
     updateWinnerMessage(); //update msg to say which player one the round
   } else if (p1c > p2c){
-    roundWinner = `${players[1].name} wins the round`;
+    roundWinner = `${players[1].name} wins ${battleArena.length} cards`;
     p1Card.classList.add('winner');
     giveVictor(players[1].deck);
-    players[0].wins+= 1;
+    players[1].wins+= 1;
     updateWinnerMessage(); //update msg to say which player one the round
   }
 }
@@ -242,9 +244,10 @@ function draw(){
 }
 
 function render(){
-  
   updateCardsLeft(); //update text for how many cards left each player has
   checkIfGameOver(); //check if someone one the game
+  document.getElementById('p1-wins').innerText = players[1].wins;
+  document.getElementById('p2-wins').innerText = players[0].wins;
 };
 
 init();
