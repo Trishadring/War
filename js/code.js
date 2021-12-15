@@ -109,15 +109,15 @@ function init(){
 
 //starting game 
 function makeDeck(){
-  for(let i = 0; i < 4; i++ ){
-    for(let r = 0; r < 13; r++ ){
+  for (let i = 0; i < 4; i++ ){
+    for (let r = 0; r < 13; r++ ){
       deck.push(suits[i] + ranks[r])
     }
   }
 }
 
 function suffleDeck(deck){
-  for( let i=0; i<52; i++ ){ //for each 52 cards
+  for ( let i=0; i<52; i++ ){ //for each 52 cards
     let tempCard = deck[i]; //temp card start position
     let randomIndex = Math.floor(Math.random() * 52); // find random card to switch with
     deck[i] = deck[randomIndex];  //switch the cards
@@ -127,7 +127,7 @@ function suffleDeck(deck){
 
 function suffleDeckmini(deck){
   let index = deck.length
-  for( let i=0; i<index; i++ ){ //shuffle the cards with the max being the index we found above
+  for ( let i=0; i<index; i++ ){ //shuffle the cards with the max being the index we found above
     let tempCard = deck[i]; //temp card start position
     let randomIndex = Math.floor(Math.random() * index); // find random card to switch with
     deck[i] = deck[randomIndex];  //switch the cards
@@ -136,8 +136,11 @@ function suffleDeckmini(deck){
 }
 
 function dealCards(){
-  players[1].deck = deck.splice(0,7); //give p1 half the deck
-  players[0].deck = deck.splice(0,7); //give p2 half the deck
+  players[1].deck = deck.splice(0,32); //give p1 half the deck
+  players[0].deck = deck.splice(0,32); //give p2 half the deck
+  // for presentation
+  // players[1].deck = deck.splice(0,7); //give p1 half the deck
+  // players[0].deck = deck.splice(0,7); //give p2 half the deck
 }
 
 function clearField(){ //starting code for cards
@@ -173,7 +176,7 @@ function findValue(card){
 function canWeWar(){
   let p1 = players[1].deck.length;
   let p2 = players[0].deck.length;
-  if( p1 < 2 ) {
+  if ( p1 < 2 ) {
     console.log( p1 < 2 );
     console.log("p1 lost");
     msgEl.innerHTML = `${players[0].name} Wins the Game, ${players[1].name} didn't have enough cards for war`
@@ -236,6 +239,8 @@ function giveVictor(victor){
 function war(){
   drawCards();
   drawCards();
+  console.log(players[0].deck);
+  console.log(players[1].deck);
   setTimeout(function(){
     clearField();
     showCards(battleArena[4],battleArena[5]);
@@ -253,7 +258,7 @@ function draw(){
 }
 
 function shuffleXrounds(){
-  if( rounds % 5 === 0 ){
+  if ( rounds % 5 === 0 ){
     suffleDeckmini(players[1].deck);
     suffleDeckmini(players[0].deck);
   }

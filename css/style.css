@@ -8,8 +8,9 @@
   --medPadding: 1rem;
   --body-text: 1rem;
   --smallertxt: calc(var(--body-text) * .75);
-  --largetxt: calc(var(--body-text) * 1.5)
-  
+  --largetxt: calc(var(--body-text) * 1.5);
+  --smallCard: 1.5rem;
+  --largeCard: calc(var(--smallCard) * 1.5);
 }
 
 body{
@@ -22,14 +23,13 @@ body{
 }
 
 .card{
-  font-size: 1.5rem;
-  margin-bottom : 5px;
+  font-size: var(--smallCard);
+  margin-bottom: 5px;
 }
 
 h1{
   font-size: var(--largetxt);
 }
-
 
 nav{
   grid-column: 1/3;
@@ -62,17 +62,19 @@ nav h1{
   grid-row: 2/3;
   
 }
+
 #battle-arena{
   /* grid-column: 2/4; */
   grid-column: 1/5;
   grid-row: 2/3;
   padding:var(--medPadding);
 }
+
 #p-2{
   grid-column: 4/5;
   grid-row: 2/3;
-  
 }
+
 #p-1, #p-2{
   padding:var(--medPadding);
   font-size: var(--smallertxt);
@@ -114,14 +116,32 @@ footer{
   border-radius: 45px;
 }
 
-
 .btn:hover {
-  /* background-color: #2EE59D; */
   box-shadow: 0px 15px 20px rgba(46, 229, 157, 0.1);
-  /* color: #fff; */
   transform: translateY(-1px);
 }
 
 button:disabled, button[disabled]{
   background-color: var(--red);
+}
+
+.card.outline{
+  background-color: #fff;
+}
+
+@media (min-width: 1000px){
+
+  :root{
+    --body-text: 1.2rem;
+    --medPadding: 1.2rem;
+  }
+
+  #msg{
+    padding-top:.5rem;
+  }
+
+  .card{
+    font-size: var(--largeCard);
+  }
+
 }

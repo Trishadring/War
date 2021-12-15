@@ -91,4 +91,3 @@ Link needed
 * impove CSS
 * add ablity to change player name
 * track games played
-* tie overiding message that player lost due to not having enough cards
