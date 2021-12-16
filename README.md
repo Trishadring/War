@@ -5,9 +5,8 @@ A description of your game. Background info of the game is a nice touch.
 
 ## Screenshot(s):
 
-img links
-
-
+![Start Image](https://imgur.com/CItiYNI)
+![Whille playing](https://imgur.com/CItiYNI)
 
 ## Technologies Used:
 
@@ -16,14 +15,25 @@ img links
  ## Getting Started:
 
 Link needed 
-☐ Getting Started: In this section include the link to your deployed game and any instructions you deem important.
 
+☐ To start the game press deal cards
+☐ To restart click new game
+☐ The button turns red while a war is happening and when the game is over.
+☐ The cards get shuffled every five turns.
 
 # Making the Game
 
 ## WireFrames:
 
-☐ Screenshot(s): Images of your actual game.
+Screenshot(s): Images of your actual game.
+
+![Html overview](https://imgur.com/aUw2Ccn)
+
+![starting page](https://imgur.com/uLd21pC)
+
+![pressed play](https://imgur.com/jM7yZMs)
+
+![showing cards](https://imgur.com/jOatK26)
 
 ## Pseudocode:
 
@@ -85,9 +95,5 @@ Link needed
 
 * Show cards played when playing war (the hidden cards)
 * add animation
-* improve code
-* add bootstrap 
-* add media queries
-* impove CSS
 * add ablity to change player name
 * track games played
