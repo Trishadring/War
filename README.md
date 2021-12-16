@@ -1,7 +1,8 @@
 # War
 
 ## War:
-A description of your game. Background info of the game is a nice touch.
+
+The card game War in web format. To play War, the deck is divided in two, then each player plays a card face up. The values are then compared the player with the highest value card wins both cards on the field. If both cards played have the same value both players put down an additional card face down then one more card face up. The last cards are compared and the player with the higher value card gets all 6 cards. The game ends when one player runs out of cards.
 
 ## Screenshot(s):
 
@@ -16,10 +17,10 @@ A description of your game. Background info of the game is a nice touch.
 
 Link needed 
 
-☐ To start the game press deal cards
-☐ To restart click new game
-☐ The button turns red while a war is happening and when the game is over.
-☐ The cards get shuffled every five turns.
+* To start the game press deal cards
+* The draw button turns red while a war is happening and when the game ends.
+* To restart click the new game button
+* The cards get shuffled every five turns.
 
 # Making the Game
 
@@ -28,8 +29,6 @@ Link needed
 Screenshot(s): Images of your actual game.
 
 ![Html overview](/img/warHtmlOverview.png)
-
-![starting page](/img/warStart.png)
 
 ![pressed play](img/warClicked.png)
 
