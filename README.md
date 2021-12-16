@@ -5,8 +5,8 @@ A description of your game. Background info of the game is a nice touch.
 
 ## Screenshot(s):
 
-![Start Image](https://imgur.com/CItiYNI)
-![Whille playing](https://imgur.com/CItiYNI)
+![Start Image](/img/liveWarStart.png)
+![Whille playing](/img/liveWarPlaying.png)
 
 ## Technologies Used:
 
@@ -27,13 +27,13 @@ Link needed
 
 Screenshot(s): Images of your actual game.
 
-![Html overview](https://imgur.com/aUw2Ccn)
+![Html overview](/img/warHtmlOverview.png)
 
-![starting page](https://imgur.com/uLd21pC)
+![starting page](/img/warStart.png)
 
-![pressed play](https://imgur.com/jM7yZMs)
+![pressed play](img/warClicked.png)
 
-![showing cards](https://imgur.com/jOatK26)
+![showing cards](/img/warBattle.png)
 
 ## Pseudocode:
 
