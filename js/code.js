@@ -142,9 +142,6 @@ function suffleDeckmini(deck) {
 function dealCards() {
   player1.deck = deck.splice(0,24); //give p1 half the deck
   player2.deck = deck.splice(0,24); //give p2 half the deck
-  // for presentation
-  // player1.deck = deck.splice(0,7); //give p1 half the deck
-  // player2.deck = deck.splice(0,7); //give p2 half the deck
 }
 
 function removeClasses(){
