@@ -15,7 +15,7 @@ The card game War in web format. To play War, the deck is divided in two, then e
 
  ## Getting Started:
 
-Link needed 
+[Link to game](https://trishadring.github.io/War/)
 
 * To start the game press deal cards
 * The draw button turns red while a war is happening and when the game ends.
